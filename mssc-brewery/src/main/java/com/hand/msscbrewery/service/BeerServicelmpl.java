@@ -10,4 +10,9 @@ public class BeerServicelmpl implements BeerService{
     public BeerDTO getBeerById(UUID beerId) {
         return BeerDTO.builder().id(UUID.randomUUID()).build();
     }
+
+    @Override
+    public BeerDTO save(BeerDTO beerDTO) {
+        return BeerDTO.builder().id(UUID.randomUUID()).build();
+    }
 }

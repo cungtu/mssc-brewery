@@ -2,6 +2,7 @@ package com.hand.msscbrewery.controller;
 
 import com.hand.msscbrewery.model.BeerDTO;
 import com.hand.msscbrewery.service.BeerService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,5 +25,14 @@ public class BeerController {
     public ResponseEntity<BeerDTO> getBeer(@PathVariable("beerId") UUID beerId)
     {
         return  new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping
+    public ResponseEntity handlePost( BeerDTO beerDTO)
+    {
+       BeerDTO savedBeer=  beerService.save(beerDTO);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Location", "/api/v1/beer/"+ savedBeer.getId().toString());
+        return new ResponseEntity(httpHeaders,HttpStatus.CREATED) ;
     }
 }
